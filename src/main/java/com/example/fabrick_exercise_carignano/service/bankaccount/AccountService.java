@@ -12,15 +12,15 @@ import com.example.fabrick_exercise_carignano.service.client.IClientService;
 public class AccountService implements IAccountService {
 
     private static final Logger log = LoggerFactory.getLogger(AccountService.class);
-    private final IClientService IClientService;
+    private final IClientService clientService;
 
-    public AccountService(IClientService IClientService){
-        this.IClientService = IClientService;
+    public AccountService(IClientService clientService){
+        this.clientService = clientService;
     }
 
     @Override
     public FabrickResponse<BalanceResponse>  getAccountBalanceResponse(long accountId) {
-        FabrickResponse<BalanceResponse> response = IClientService.getBankAccountBalance(accountId);
+        FabrickResponse<BalanceResponse> response = clientService.getBankAccountBalance(accountId);
 
         if(response.getPayload() == null){
             log.error("BankAccountService Error: received payload from getBankAccountBalance to NULL");
