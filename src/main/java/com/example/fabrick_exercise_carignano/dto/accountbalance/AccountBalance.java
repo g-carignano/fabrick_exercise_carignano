@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.dto;
+package com.example.fabrick_exercise_carignano.dto.accountbalance;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

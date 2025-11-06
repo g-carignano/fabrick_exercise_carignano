@@ -1,7 +1,7 @@
 package com.example.fabrick_exercise_carignano.controller;
 
-import com.example.fabrick_exercise_carignano.dto.AccountBalance;
-import com.example.fabrick_exercise_carignano.dto.BalanceResponse;
+import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
+import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
