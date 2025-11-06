@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.fabrick_exercise_carignano.service.client.ClientService;
+import com.example.fabrick_exercise_carignano.service.client.IClientService;
 
 @RestController
 @RequestMapping("/api/account/")
 public class FabrickApiController{
-    private final ClientService clientService;
+    private final IClientService clientService;
 
-    public FabrickApiController(ClientService clientService){
+    public FabrickApiController(IClientService clientService){
         this.clientService = clientService;
     }
     //Add Actuators
