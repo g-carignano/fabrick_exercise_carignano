@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 public class BalanceResponse {
     private LocalDate date;
-    private BigDecimal balance;
-    private BigDecimal availableBalance;
+    private Number balance;
+    private Number availableBalance;
     private String currency;
 }

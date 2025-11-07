@@ -1,5 +1,6 @@
 package com.example.fabrick_exercise_carignano.service.bankaccount;
 
+import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import org.apache.logging.log4j.util.InternalException;
@@ -19,7 +20,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public FabrickResponse<BalanceResponse>  getAccountBalanceResponse(long accountId) {
+    public AccountBalance getAccountBalanceResponse(long accountId) {
         FabrickResponse<BalanceResponse> response = clientService.getBankAccountBalance(accountId);
 
         if(response.getPayload() == null){
@@ -27,6 +28,15 @@ public class AccountService implements IAccountService {
             throw new InternalException("BankAccountService Error: received payload from getBankAccountBalance to NULL");
         }
 
-        return response;
+        return mapBalanceResponseIntoAccountBalance(response.getPayload(), accountId);
+    }
+
+    private AccountBalance mapBalanceResponseIntoAccountBalance(BalanceResponse balanceResponse, long accountId){
+        AccountBalance ret = new AccountBalance();
+
+        ret.setAccountId(accountId);
+        ret.setBalance(balanceResponse.getBalance().toString());
+
+        return ret;
     }
 }
