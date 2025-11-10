@@ -6,6 +6,7 @@ import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferReq
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
 
 public interface IClientService {
-    public FabrickResponse<BalanceResponse> getBankAccountBalance(long accountId);
-    public FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferRequest moneyTransferRequest);
+    FabrickResponse<BalanceResponse> getBankAccountBalance(long accountId);
+    FabrickResponse<BalanceResponse> getBankAccountBalanceFromMapping(long accountId);
+    FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferRequest moneyTransferRequest);
 }

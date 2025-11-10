@@ -2,8 +2,10 @@ package com.example.fabrick_exercise_carignano.service.client;
 
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.dto.converters.FabrickResponseBalanceResponseConverter;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferRequest;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,13 +41,29 @@ public class ClientService implements IClientService {
     }
 
     @Override
+    public FabrickResponse<BalanceResponse> getBankAccountBalanceFromMapping(long accountId) {
+        log.info("Calling external api with manual mapping: {} with accountId: {}",getBalanceUrl, accountId);
+
+        String result = restClient.get().uri(getBalanceUrl,accountId).retrieve().body(String.class);
+
+        log.info(result);
+
+        try{
+
+            JSONObject jsonObject = new JSONObject(result);
+            return FabrickResponseBalanceResponseConverter.ConvertFromJSon(jsonObject);
+
+
+        }catch (Exception ex){
+            log.error(ex.getMessage());
+            throw ex;
+        }
+
+    }
+
+    @Override
     public FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferRequest moneyTransferRequest) {
         log.info("Calling external api: {} with accountId: {}",postMoneyTransfer, accountId);
-
-        RestClient.ResponseSpec stuff = restClient.post()
-                .uri(postMoneyTransfer, accountId)
-                .body(moneyTransferRequest)
-                .retrieve();
 
         return restClient.post()
                 .uri(postMoneyTransfer, accountId)

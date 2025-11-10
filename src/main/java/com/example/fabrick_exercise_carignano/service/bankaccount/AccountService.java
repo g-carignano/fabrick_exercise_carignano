@@ -21,7 +21,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public AccountBalance getAccountBalanceResponse(long accountId) {
-        FabrickResponse<BalanceResponse> response = clientService.getBankAccountBalance(accountId);
+        FabrickResponse<BalanceResponse> response = clientService.getBankAccountBalanceFromMapping(accountId);
 
         if(response.getPayload() == null){
             log.error("BankAccountService Error: received payload from getBankAccountBalance to NULL");
