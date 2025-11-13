@@ -2,7 +2,6 @@ package com.example.fabrick_exercise_carignano.controller;
 
 import com.example.fabrick_exercise_carignano.dto.FabrickException;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
-import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferRequest;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
@@ -10,6 +9,7 @@ import com.example.fabrick_exercise_carignano.service.bankaccount.AccountService
 import com.example.fabrick_exercise_carignano.service.bankaccount.IAccountService;
 import com.example.fabrick_exercise_carignano.service.moneytransfer.IMoneyTransferService;
 import com.example.fabrick_exercise_carignano.service.moneytransfer.MoneyTransferService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
@@ -39,15 +39,9 @@ public class FabrickApiController{
 
     //Add Actuators
     @PostMapping("/{accountId}/post-money-transfer")
-    public ResponseEntity<MoneyTransferResponse> postMoneyTransfer(@PathVariable @Positive @NotNull Long accountId, @RequestBody MoneyTransferRequest moneyTransferRequest) {
-
-        try{
-            FabrickResponse<MoneyTransferResponse> monTranResp = this.moneyTransferService.postMoneyTransfer(accountId, moneyTransferRequest);
-            return ResponseEntity.ok(monTranResp.getPayload());
-
-        }catch (FabrickException fe){
-            return ResponseEntity.status(400).body(new MoneyTransferResponse());
-        }
+    public ResponseEntity<MoneyTransferResponse> postMoneyTransfer(@PathVariable @Positive @NotNull Long accountId, @RequestBody @Valid MoneyTransferRequest moneyTransferRequest) throws FabrickException{
+        FabrickResponse<MoneyTransferResponse> monTranResp = this.moneyTransferService.postMoneyTransfer(accountId, moneyTransferRequest);
+        return ResponseEntity.ok(monTranResp.getPayload());
 
     }
 }

@@ -18,7 +18,7 @@ public class FabrickResponseBalanceResponseConverter {
         BalanceResponse balanceResponse = new BalanceResponse();
 
         ret.setStatus(jsonObject.getString("status"));
-        ret.setError(responseErrors);
+        ret.setErrors(responseErrors);
 
         balanceResponse.setDate(LocalDate.parse(jsonObjectPayload.getString("date")));
         balanceResponse.setBalance(jsonObjectPayload.getNumber("balance"));

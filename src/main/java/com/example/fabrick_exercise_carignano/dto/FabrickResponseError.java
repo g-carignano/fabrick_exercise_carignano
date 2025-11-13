@@ -10,5 +10,4 @@ import lombok.*;
 public class FabrickResponseError {
     private String code;
     private String description;
-    private String params;
 }

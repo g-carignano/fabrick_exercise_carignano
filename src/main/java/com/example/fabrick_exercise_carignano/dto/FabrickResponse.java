@@ -14,12 +14,12 @@ import java.util.List;
 public class FabrickResponse<T> {
 
     private String status;
-    private List<FabrickResponseError> error;
+    private List<FabrickResponseError> errors;
     private T payload;
 
-    public  FabrickResponse(String status, List<FabrickResponseError> error, T payload){
+    public  FabrickResponse(String status, List<FabrickResponseError> errors, T payload){
         this.status = status;
-        this.error = error;
+        this.errors = errors;
         this.payload = payload;
     }
 }

@@ -3,6 +3,7 @@ package com.example.fabrick_exercise_carignano.service.bankaccount;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.dto.converters.GlobalConverter;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,15 +29,6 @@ public class AccountService implements IAccountService {
             throw new InternalException("BankAccountService Error: received payload from getBankAccountBalance to NULL");
         }
 
-        return mapBalanceResponseIntoAccountBalance(response.getPayload(), accountId);
-    }
-
-    private AccountBalance mapBalanceResponseIntoAccountBalance(BalanceResponse balanceResponse, long accountId){
-        AccountBalance ret = new AccountBalance();
-
-        ret.setAccountId(accountId);
-        ret.setBalance(balanceResponse.getBalance().toString());
-
-        return ret;
+        return GlobalConverter.mapBalanceResponseIntoAccountBalance(response.getPayload(), accountId);
     }
 }
