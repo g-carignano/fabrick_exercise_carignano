@@ -6,7 +6,6 @@ import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.converters.FabrickResponseBalanceResponseConverter;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferFabrickRequest;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.util.InternalException;
 import org.json.JSONObject;
@@ -76,22 +75,9 @@ public class ClientService implements IClientService {
         log.info("Calling external api: {} with accountId: {}",postMoneyTransfer, accountId);
         String json = null;
 
-
-
-        try{
-            json = objectMapper.writeValueAsString(moneyTransferFabrickRequest);
-            log.info("Serialized moneyTransferFabrickRequest: {}", json);
-            JSONObject jsonObject = new JSONObject(json);
-            log.info("Serialized moneyTransferFabrickRequest: {}", jsonObject);
-        }catch (JsonProcessingException e) {
-            // Handle or log gracefully
-            log.error("Failed to serialize request body: " + e.getMessage());
-        }
-
-
         ResponseEntity<FabrickResponse<MoneyTransferResponse>> responseEntity = restClient.post()
                 .uri(postMoneyTransfer, accountId)
-                .body(json)
+                .body(moneyTransferFabrickRequest)
                 .exchange((clientRequest, clientResponse) -> {
                     HttpStatusCode statusCode = clientResponse.getStatusCode();
                     log.info("Uri: {}", clientRequest.getURI().toURL());
