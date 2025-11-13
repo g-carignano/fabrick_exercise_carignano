@@ -1,15 +1,13 @@
-package com.example.fabrick_exercise_carignano.dto.moneytransfer;
+package com.example.fabrick_exercise_carignano.dto.moneytransfer.local;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class MoneyTransferResponse {
 

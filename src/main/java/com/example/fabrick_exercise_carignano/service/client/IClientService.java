@@ -3,8 +3,8 @@ package com.example.fabrick_exercise_carignano.service.client;
 import com.example.fabrick_exercise_carignano.dto.FabrickException;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferFabrickRequest;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick.MoneyTransferFabrickRequest;
+import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
 
 public interface IClientService {
     FabrickResponse<BalanceResponse> getBankAccountBalance(long accountId);

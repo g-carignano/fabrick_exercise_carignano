@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.dto.moneytransfer;
+package com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TaxRelief {
+public class TaxReliefFabrick {
 
     private String taxReliefId;
 
@@ -19,8 +19,8 @@ public class TaxRelief {
     @NotBlank
     private String beneficiaryType;
 
-    private NaturalPersonBeneficiary naturalPersonBeneficiary;
+    private NaturalPersonBeneficiaryFabrick naturalPersonBeneficiary;
 
-    private LegalPersonBeneficiary legalPersonBeneficiary;
+    private LegalPersonBeneficiaryFabrick legalPersonBeneficiary;
 
 }

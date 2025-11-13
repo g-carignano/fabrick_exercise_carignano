@@ -4,8 +4,8 @@ import com.example.fabrick_exercise_carignano.dto.FabrickException;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponseError;
 import com.example.fabrick_exercise_carignano.dto.converters.GlobalConverter;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferRequest;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferRequest;
+import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
 import com.example.fabrick_exercise_carignano.service.client.IClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class MoneyTransferService implements IMoneyTransferService{
     public FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferRequest moneyTransferRequest)  throws FabrickException{
         FabrickResponse<MoneyTransferResponse> response;
         try{
-            response = clientService.postMoneyTransfer(accountId, GlobalConverter.mapMoneyTransferFabrickToMoneyTransferFabrickRequest(moneyTransferRequest));
+            response = clientService.postMoneyTransfer(accountId, GlobalConverter.mapMoneyTransferRequestToMoneyTransferFabrickRequest(moneyTransferRequest));
         }catch (FabrickException fe){
             List<FabrickResponseError> errorList = new ArrayList<>();
             log.error("Fabrick Exception thrown errors: {}", fe.getErrorList());

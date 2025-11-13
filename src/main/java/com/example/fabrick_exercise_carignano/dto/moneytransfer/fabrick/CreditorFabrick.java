@@ -1,19 +1,17 @@
-package com.example.fabrick_exercise_carignano.dto.moneytransfer;
+package com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class Creditor {
+public class CreditorFabrick {
 
-    public Creditor(@NotNull String  name, @NotNull Account account, Address address) {
+    public CreditorFabrick(@NotNull String  name, @NotNull AccountFabrick account, AddressFabrick address) {
         this.name = name;
         this.account = account;
         this.address = address;
@@ -24,8 +22,8 @@ public class Creditor {
     private String name;
 
     @Valid
-    private Account account;
+    private AccountFabrick account;
 
-    private Address address;
+    private AddressFabrick address;
 
 }

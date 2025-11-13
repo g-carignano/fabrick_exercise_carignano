@@ -1,23 +1,22 @@
-package com.example.fabrick_exercise_carignano.dto.moneytransfer;
+package com.example.fabrick_exercise_carignano.dto.moneytransfer.local;
 
+import com.example.fabrick_exercise_carignano.constants.ProjectConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class MoneyTransferRequest {
 
-    public MoneyTransferRequest(Creditor creditor, LocalDate executionDate, String uri, String description, @NotNull Double amount, String currency, Boolean isUrgent, Boolean isInstant, String feeType, String feeAccountId, TaxRelief taxRelief) {
+    public MoneyTransferRequest(Creditor creditor, Date executionDate, String uri, String description, @NotNull Double amount, String currency, Boolean isUrgent, Boolean isInstant, String feeType, String feeAccountId, TaxRelief taxRelief) {
         this.creditor = creditor;
         this.executionDate = executionDate;
         this.uri = uri;
@@ -34,8 +33,8 @@ public class MoneyTransferRequest {
     @Valid
     private Creditor creditor;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate executionDate;
+    @JsonFormat(pattern = ProjectConstants.DateFormat.STANDARD_DATE_FORMAT)
+    private Date executionDate;
 
     private String uri;
 
