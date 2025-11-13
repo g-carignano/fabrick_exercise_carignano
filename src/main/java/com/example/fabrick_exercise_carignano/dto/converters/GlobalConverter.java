@@ -4,6 +4,10 @@ import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick.*;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.*;
+import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionFabrick;
+import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionTypeFabrick;
+import com.example.fabrick_exercise_carignano.dto.transaction.local.Transaction;
+import com.example.fabrick_exercise_carignano.dto.transaction.local.TransactionType;
 
 public class GlobalConverter {
     public static MoneyTransferFabrickRequest mapMoneyTransferRequestToMoneyTransferFabrickRequest(MoneyTransferRequest moneyTransferRequest){
@@ -108,5 +112,35 @@ public class GlobalConverter {
 
         return ret;
 
+    }
+
+    public static Transaction mapTransactionFabrickToTransaction(TransactionFabrick transaction){
+
+        Transaction ret = transaction != null ? new Transaction() : null;
+
+        if(ret != null){
+            ret.setTransactionId(transaction.getTransactionId());
+            ret.setDescription(transaction.getDescription());
+            ret.setAmount(transaction.getAmount());
+            ret.setOperationId(transaction.getOperationId());
+            ret.setAccountingDate(transaction.getAccountingDate());
+            ret.setValueDate(transaction.getValueDate());
+            ret.setCurrency(transaction.getCurrency());
+            ret.setType(mapTransactionTypeFabrickToTransactionType(transaction.getType()));
+        }
+
+        return ret;
+
+    }
+
+    private static TransactionType mapTransactionTypeFabrickToTransactionType(TransactionTypeFabrick transactionType){
+        TransactionType ret = transactionType != null ? new TransactionType() : null;
+
+        if(ret != null){
+            ret.setEnumeration(transactionType.getEnumeration());
+            ret.setValue(transactionType.getValue());
+        }
+
+        return ret;
     }
 }

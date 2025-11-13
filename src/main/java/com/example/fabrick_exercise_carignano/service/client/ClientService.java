@@ -6,6 +6,7 @@ import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.converters.FabrickResponseBalanceResponseConverter;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick.MoneyTransferFabrickRequest;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionResponseFabrick;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.util.InternalException;
 import org.json.JSONObject;
@@ -19,6 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 @Component
 public class ClientService implements IClientService {
@@ -27,7 +31,10 @@ public class ClientService implements IClientService {
     private String getBalanceUrl;
 
     @Value("${external.client.postmoneytransfer}")
-    private String postMoneyTransfer;
+    private String postMoneyTransferUrl;
+
+    @Value("${external.client.getaccounttransactionlist}")
+    private String getAccountTransactionListUrl;
 
     private static final Logger log = LoggerFactory.getLogger(ClientService.class);
     private final RestClient restClient;
@@ -72,11 +79,10 @@ public class ClientService implements IClientService {
 
     @Override
     public FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferFabrickRequest moneyTransferFabrickRequest) throws FabrickException{
-        log.info("Calling external api: {} with accountId: {}",postMoneyTransfer, accountId);
-        String json = null;
+        log.info("Calling external api: {} with accountId: {}",postMoneyTransferUrl, accountId);
 
         ResponseEntity<FabrickResponse<MoneyTransferResponse>> responseEntity = restClient.post()
-                .uri(postMoneyTransfer, accountId)
+                .uri(postMoneyTransferUrl, accountId)
                 .body(moneyTransferFabrickRequest)
                 .exchange((clientRequest, clientResponse) -> {
                     HttpStatusCode statusCode = clientResponse.getStatusCode();
@@ -104,5 +110,18 @@ public class ClientService implements IClientService {
             throw new InternalException("postMoneyTransfer: ResponseEntity is NULL!");
 
         return responseEntity.getBody();
+    }
+
+    @Override
+    public FabrickResponse<TransactionResponseFabrick> getAccountTransactionList(long accountId, Date fromAccountingDate, Date toAccountingDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        log.info("Calling external api: {} with accountId: {} fromAccountingDate: {} toAccountingDate:{}",getAccountTransactionListUrl, accountId, formatter.format(fromAccountingDate), formatter.format(toAccountingDate));
+
+        return restClient.get()
+                .uri(getAccountTransactionListUrl, accountId, formatter.format(fromAccountingDate), formatter.format(toAccountingDate))
+                .retrieve()
+                .toEntity(new ParameterizedTypeReference<FabrickResponse<TransactionResponseFabrick>>() {})
+                .getBody();
+
     }
 }

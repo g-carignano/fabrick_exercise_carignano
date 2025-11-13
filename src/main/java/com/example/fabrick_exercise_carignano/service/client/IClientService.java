@@ -5,9 +5,13 @@ import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.fabrick.MoneyTransferFabrickRequest;
 import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionResponseFabrick;
+
+import java.util.Date;
 
 public interface IClientService {
     FabrickResponse<BalanceResponse> getBankAccountBalance(long accountId);
     FabrickResponse<BalanceResponse> getBankAccountBalanceFromMapping(long accountId);
     FabrickResponse<MoneyTransferResponse> postMoneyTransfer(long accountId, MoneyTransferFabrickRequest moneyTransferFabrickRequest) throws FabrickException;
+    FabrickResponse<TransactionResponseFabrick> getAccountTransactionList(long accountId, Date fromAccountingDate, Date toAccountingDate);
 }
