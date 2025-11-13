@@ -1,26 +1,17 @@
 package com.example.fabrick_exercise_carignano.dto.moneytransfer;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class TaxRelief {
 
     private String taxReliefId;
 
     @NotBlank
-    private boolean isCondoUpgrade;
-
-    @JsonProperty("isCondoUpgrade")
-    public boolean isCondoUpgrade() { return isCondoUpgrade; }
-
-    @JsonProperty("isCondoUpgrade")
-    public void setCondoUpgrade(boolean isCondoUpgrade) { this.isCondoUpgrade = isCondoUpgrade; }
+    private Boolean isCondoUpgrade;
 
     @NotBlank
     private String creditorFiscalCode;
