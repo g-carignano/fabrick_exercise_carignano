@@ -4,15 +4,19 @@ import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
 import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
 import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.dto.converters.GlobalConverter;
+import com.example.fabrick_exercise_carignano.mapper.AccountBalanceMapper;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.fabrick_exercise_carignano.service.client.IClientService;
 
 @Service
 public class AccountService implements IAccountService {
 
+    @Autowired
+    private AccountBalanceMapper accountBalanceMapper;
     private static final Logger log = LoggerFactory.getLogger(AccountService.class);
     private final IClientService clientService;
 
@@ -29,6 +33,7 @@ public class AccountService implements IAccountService {
             throw new InternalException("BankAccountService Error: received payload from getBankAccountBalance to NULL");
         }
 
-        return GlobalConverter.mapBalanceResponseIntoAccountBalance(response.getPayload(), accountId);
+        //return GlobalConverter.mapBalanceResponseIntoAccountBalance(response.getPayload(), accountId);
+        return accountBalanceMapper.toAccountBalance(response.getPayload(), accountId);
     }
 }

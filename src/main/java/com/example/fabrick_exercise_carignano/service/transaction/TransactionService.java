@@ -5,8 +5,10 @@ import com.example.fabrick_exercise_carignano.dto.converters.GlobalConverter;
 import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionFabrick;
 import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionResponseFabrick;
 import com.example.fabrick_exercise_carignano.dto.transaction.local.Transaction;
+import com.example.fabrick_exercise_carignano.mapper.TransactionMapper;
 import com.example.fabrick_exercise_carignano.service.client.IClientService;
 import org.apache.logging.log4j.util.InternalException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.List;
 public class TransactionService implements ITransactionService {
 
     private final IClientService clientService;
+    @Autowired
+    private TransactionMapper transactionMapper;
 
     public TransactionService(IClientService clientService) {
         this.clientService = clientService;
@@ -31,9 +35,11 @@ public class TransactionService implements ITransactionService {
         if(response == null)
             throw  new InternalException("getTransactionList: Response is NULL!");
 
-        for(TransactionFabrick tf : response.getPayload().getList()){
+        /*for(TransactionFabrick tf : response.getPayload().getList()){
             retList.add(GlobalConverter.mapTransactionFabrickToTransaction(tf));
-        }
+        }*/
+
+        retList = transactionMapper.toTransactionList(response.getPayload().getList());
 
         return retList;
     }
