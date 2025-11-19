@@ -1,7 +1,7 @@
 package com.example.fabrick_exercise_carignano.mapper;
 
-import com.example.fabrick_exercise_carignano.dto.transaction.fabrick.TransactionFabrick;
-import com.example.fabrick_exercise_carignano.dto.transaction.local.Transaction;
+import com.example.fabrick_exercise_carignano.fabrickdto.transaction.fabrick.TransactionFabrick;
+import com.example.fabrick_exercise_carignano.fabrickdto.transaction.local.Transaction;
 import org.mapstruct.Mapper;
 
 import java.util.List;

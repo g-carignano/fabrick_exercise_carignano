@@ -1,6 +1,6 @@
 package com.example.fabrick_exercise_carignano.service.transaction;
 
-import com.example.fabrick_exercise_carignano.dto.transaction.local.Transaction;
+import com.example.fabrick_exercise_carignano.fabrickdto.transaction.local.Transaction;
 
 import java.util.Date;
 import java.util.List;

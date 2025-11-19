@@ -1,7 +1,7 @@
 package com.example.fabrick_exercise_carignano.mapper;
 
-import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
-import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.AccountBalance;
+import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.BalanceResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

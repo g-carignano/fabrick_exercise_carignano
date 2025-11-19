@@ -1,9 +1,9 @@
 package com.example.fabrick_exercise_carignano.service.moneytransfer;
 
-import com.example.fabrick_exercise_carignano.dto.FabrickException;
-import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferRequest;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferRequest;
+import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferResponse;
 
 public interface IMoneyTransferService {
 

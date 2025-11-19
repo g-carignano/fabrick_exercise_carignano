@@ -1,8 +1,6 @@
 package com.example.fabrick_exercise_carignano.service.bankaccount;
 
-import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
-import com.example.fabrick_exercise_carignano.dto.accountbalance.BalanceResponse;
-import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.AccountBalance;
 
 public interface IAccountService {
 

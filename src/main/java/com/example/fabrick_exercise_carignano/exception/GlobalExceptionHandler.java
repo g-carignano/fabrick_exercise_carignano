@@ -1,8 +1,8 @@
 package com.example.fabrick_exercise_carignano.exception;
 
-import com.example.fabrick_exercise_carignano.dto.FabrickException;
-import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
-import com.example.fabrick_exercise_carignano.dto.FabrickResponseError;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponseError;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

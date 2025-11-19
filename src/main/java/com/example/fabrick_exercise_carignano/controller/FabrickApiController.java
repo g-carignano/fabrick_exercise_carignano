@@ -1,12 +1,12 @@
 package com.example.fabrick_exercise_carignano.controller;
 
 import com.example.fabrick_exercise_carignano.constants.ProjectConstants;
-import com.example.fabrick_exercise_carignano.dto.FabrickException;
-import com.example.fabrick_exercise_carignano.dto.accountbalance.AccountBalance;
-import com.example.fabrick_exercise_carignano.dto.FabrickResponse;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferRequest;
-import com.example.fabrick_exercise_carignano.dto.moneytransfer.local.MoneyTransferResponse;
-import com.example.fabrick_exercise_carignano.dto.transaction.local.Transaction;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
+import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.AccountBalance;
+import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferRequest;
+import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferResponse;
+import com.example.fabrick_exercise_carignano.fabrickdto.transaction.local.Transaction;
 import com.example.fabrick_exercise_carignano.service.bankaccount.IAccountService;
 import com.example.fabrick_exercise_carignano.service.moneytransfer.IMoneyTransferService;
 import com.example.fabrick_exercise_carignano.service.transaction.ITransactionService;
@@ -17,7 +17,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.example.fabrick_exercise_carignano.service.client.IClientService;
 
 import java.util.Date;
 import java.util.List;
@@ -56,5 +55,4 @@ public class FabrickApiController{
         List<Transaction> transactionList = this.transactionService.getTransactionList(accountId, fromAccountingDate, toAccountingDate);
         return ResponseEntity.ok(transactionList);
     }
-
 }
