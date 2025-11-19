@@ -1,10 +1,10 @@
-package com.example.fabrick_exercise_carignano.service.transaction;
+package com.example.fabrick_exercise_carignano.fabrickservice.transaction;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;
 import com.example.fabrick_exercise_carignano.fabrickdto.transaction.fabrick.TransactionResponseFabrick;
 import com.example.fabrick_exercise_carignano.fabrickdto.transaction.local.Transaction;
 import com.example.fabrick_exercise_carignano.mapper.TransactionMapper;
-import com.example.fabrick_exercise_carignano.service.client.IClientService;
+import com.example.fabrick_exercise_carignano.fabrickservice.client.IClientService;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

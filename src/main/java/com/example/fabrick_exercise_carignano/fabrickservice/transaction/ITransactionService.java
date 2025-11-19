@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.transaction;
+package com.example.fabrick_exercise_carignano.fabrickservice.transaction;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.transaction.local.Transaction;
 

@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.bankaccount;
+package com.example.fabrick_exercise_carignano.fabrickservice.bankaccount;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.AccountBalance;
 

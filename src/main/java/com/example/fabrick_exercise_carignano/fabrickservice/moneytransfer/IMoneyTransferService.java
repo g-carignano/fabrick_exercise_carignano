@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.moneytransfer;
+package com.example.fabrick_exercise_carignano.fabrickservice.moneytransfer;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;

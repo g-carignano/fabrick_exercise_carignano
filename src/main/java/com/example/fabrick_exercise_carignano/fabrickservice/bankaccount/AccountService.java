@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.bankaccount;
+package com.example.fabrick_exercise_carignano.fabrickservice.bankaccount;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.AccountBalance;
 import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.BalanceResponse;
@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.fabrick_exercise_carignano.service.client.IClientService;
+import com.example.fabrick_exercise_carignano.fabrickservice.client.IClientService;
 
 @Service
 public class AccountService implements IAccountService {

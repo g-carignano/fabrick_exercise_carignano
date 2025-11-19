@@ -1,6 +1,6 @@
 package com.example.fabrick_exercise_carignano.config;
 
-import com.example.fabrick_exercise_carignano.service.client.ClientService;
+import com.example.fabrick_exercise_carignano.fabrickservice.client.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

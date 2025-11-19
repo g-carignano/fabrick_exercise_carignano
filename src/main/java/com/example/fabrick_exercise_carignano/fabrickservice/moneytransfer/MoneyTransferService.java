@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.moneytransfer;
+package com.example.fabrick_exercise_carignano.fabrickservice.moneytransfer;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponse;
@@ -6,7 +6,7 @@ import com.example.fabrick_exercise_carignano.fabrickdto.FabrickResponseError;
 import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferRequest;
 import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.MoneyTransferResponse;
 import com.example.fabrick_exercise_carignano.mapper.MoneyTransferRequestMapper;
-import com.example.fabrick_exercise_carignano.service.client.IClientService;
+import com.example.fabrick_exercise_carignano.fabrickservice.client.IClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

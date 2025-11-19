@@ -1,4 +1,4 @@
-package com.example.fabrick_exercise_carignano.service.client;
+package com.example.fabrick_exercise_carignano.fabrickservice.client;
 
 import com.example.fabrick_exercise_carignano.fabrickdto.FabrickException;
 import com.example.fabrick_exercise_carignano.fabrickdto.accountbalance.BalanceResponse;
