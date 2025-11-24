@@ -22,8 +22,6 @@ public class TransactionInfo {
     private Transaction transaction;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tran_seq")
-    @SequenceGenerator(name = "tran_seq", sequenceName = "TRAN_ID_SEQ", allocationSize = 1)
     @Column(name = "IDTRANSACTION", unique = true, nullable = false)
     public BigDecimal getIdTransaction() {
         return idTransaction;
@@ -60,6 +58,7 @@ public class TransactionInfo {
         this.issuer = issuer;
     }
 
+    @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDTRANSACTION", referencedColumnName = "IDTRANSACTION", insertable = false, updatable = false)
     @JsonBackReference

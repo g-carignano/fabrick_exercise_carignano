@@ -70,7 +70,7 @@ public class Transaction {
         this.paymentMethod = paymentMethod;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "transaction")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "transaction", cascade = CascadeType.ALL, optional = false)
     @JsonManagedReference
     public TransactionInfo getTransactionInfo() {
         return transactionInfo;

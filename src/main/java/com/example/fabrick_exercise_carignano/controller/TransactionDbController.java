@@ -32,4 +32,10 @@ public class TransactionDbController {
         List<TransactionDTO> ret = localTransactionService.getTransactionsByFilter(transactionListRequestDTO);
         return ResponseEntity.ok(ret);
     }
+
+    @PostMapping("/create-transaction")
+    public ResponseEntity<String> getTransactionsByFilter(@RequestBody @Valid TransactionDTO transactionDTO) {
+        this.localTransactionService.insertTransaction(transactionDTO);
+        return ResponseEntity.ok("OK");
+    }
 }

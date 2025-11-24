@@ -5,6 +5,7 @@ import com.example.fabrick_exercise_carignano.localdto.TransactionListRequestDTO
 import com.example.fabrick_exercise_carignano.mapper.LocalTransactionMapper;
 import com.example.fabrick_exercise_carignano.repositories.TransactionHibernateRepository;
 import com.example.fabrick_exercise_carignano.repositories.TransactionRepository;
+import com.example.fabrick_exercise_carignano.repositories.dao.Transaction;
 import com.example.fabrick_exercise_carignano.repositories.filter.TransactionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class TransactionDbS {
 
     public List<TransactionDTO> getTransactionsByFilterHibernate(TransactionListRequestDTO transactionFilterDTO){
         return localTransactionMapper.toListTransactionDTO(transactionHibernateRepository.findTransactionsByFilter(localTransactionMapper.toTransactionFilter(transactionFilterDTO)));
+    }
+
+    public Transaction insertTransaction(Transaction transaction){
+        return transactionRepository.saveAndFlush(transaction);
     }
 
 
