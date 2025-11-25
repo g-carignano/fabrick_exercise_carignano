@@ -7,9 +7,10 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class PictureDTO {
+public class FileDTO {
 
-    private BigDecimal idPicture;
+    private BigDecimal idFile;
     private String fileName;
-    private byte[] data;
+    private String data;
+    private String format;
 }
