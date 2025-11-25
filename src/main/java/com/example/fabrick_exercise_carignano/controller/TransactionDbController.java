@@ -2,6 +2,7 @@ package com.example.fabrick_exercise_carignano.controller;
 
 import com.example.fabrick_exercise_carignano.localdto.TransactionDTO;
 import com.example.fabrick_exercise_carignano.localdto.TransactionListRequestDTO;
+import com.example.fabrick_exercise_carignano.localdto.TransactionResponseDTO;
 import com.example.fabrick_exercise_carignano.localservice.transaction.LocalTransactionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,7 @@ public class TransactionDbController {
     }
 
     @PostMapping("/create-transaction")
-    public ResponseEntity<String> getTransactionsByFilter(@RequestBody @Valid TransactionDTO transactionDTO) {
-        this.localTransactionService.insertTransaction(transactionDTO);
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<TransactionResponseDTO> getTransactionsByFilter(@RequestBody @Valid TransactionDTO transactionDTO) {
+        return ResponseEntity.ok(this.localTransactionService.insertTransaction(transactionDTO));
     }
 }

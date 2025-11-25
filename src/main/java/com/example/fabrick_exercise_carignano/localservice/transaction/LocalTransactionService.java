@@ -2,6 +2,7 @@ package com.example.fabrick_exercise_carignano.localservice.transaction;
 
 import com.example.fabrick_exercise_carignano.localdto.TransactionDTO;
 import com.example.fabrick_exercise_carignano.localdto.TransactionListRequestDTO;
+import com.example.fabrick_exercise_carignano.localdto.TransactionResponseDTO;
 import com.example.fabrick_exercise_carignano.localservice.db.PaymentMethodDbS;
 import com.example.fabrick_exercise_carignano.localservice.db.TransactionDbS;
 import com.example.fabrick_exercise_carignano.localservice.db.TransactionInfoDbS;
@@ -36,7 +37,7 @@ public class LocalTransactionService implements ILocalTransactionService {
     }
 
     @Transactional
-    public void insertTransaction(TransactionDTO transactionDTO){
+    public TransactionResponseDTO insertTransaction(TransactionDTO transactionDTO){
         Transaction transaction = localTransactionMapper.toTransaction(transactionDTO);
 
         transaction.setPaymentMethod(paymentMethodDbS.getPaymentMethodByCircuit(transactionDTO.getPaymentMethod().getCircuitType()));
@@ -48,6 +49,7 @@ public class LocalTransactionService implements ILocalTransactionService {
         transactionInfo.setTransaction(transaction);
         transactionInfo = transactionInfoDbS.insertTransactionInfo(transactionInfo);
 
+        return localTransactionMapper.toTransactionResponseDTO(transaction);
     }
 
 }

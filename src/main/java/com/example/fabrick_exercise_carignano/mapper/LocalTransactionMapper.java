@@ -3,6 +3,7 @@ package com.example.fabrick_exercise_carignano.mapper;
 import com.example.fabrick_exercise_carignano.localdto.TransactionDTO;
 import com.example.fabrick_exercise_carignano.localdto.TransactionInfoDTO;
 import com.example.fabrick_exercise_carignano.localdto.TransactionListRequestDTO;
+import com.example.fabrick_exercise_carignano.localdto.TransactionResponseDTO;
 import com.example.fabrick_exercise_carignano.repositories.dao.Transaction;
 import com.example.fabrick_exercise_carignano.repositories.dao.TransactionInfo;
 import com.example.fabrick_exercise_carignano.repositories.filter.TransactionFilter;
@@ -21,4 +22,6 @@ public interface LocalTransactionMapper {
     TransactionFilter toTransactionFilter(TransactionListRequestDTO transactionListRequestDTO);
     TransactionInfo toTransactionInfo(TransactionInfoDTO transactionInfoDTO);
     TransactionInfoDTO toTransactionInfoDTO(TransactionInfo transactionInfo);
+
+    TransactionResponseDTO toTransactionResponseDTO(Transaction transaction);
 }
