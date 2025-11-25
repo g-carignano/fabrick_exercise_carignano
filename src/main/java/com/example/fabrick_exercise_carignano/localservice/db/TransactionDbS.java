@@ -47,5 +47,15 @@ public class TransactionDbS {
         return transactionRepository.saveAndFlush(transaction);
     }
 
+    public Boolean deleteTransaction(Transaction transaction){
+        try{
+            transactionRepository.delete(transaction);
+        }catch (Exception ex){
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

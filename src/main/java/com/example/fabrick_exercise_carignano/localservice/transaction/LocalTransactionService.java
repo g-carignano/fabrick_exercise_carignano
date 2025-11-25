@@ -99,4 +99,17 @@ public class LocalTransactionService implements ILocalTransactionService {
         ti1.setIssuer(ti2.getIssuer());
     }
 
+    @Transactional
+    public Boolean deleteTransaction(String guid){
+        Transaction transaction = transactionDbS.getTransactionByGuid(guid);
+        Boolean ret;
+
+        if(transaction == null)
+            return false;
+
+        ret = transactionDbS.deleteTransaction(transaction);
+        return ret;
+
+    }
+
 }

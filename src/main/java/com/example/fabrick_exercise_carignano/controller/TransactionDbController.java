@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Validated
@@ -46,5 +47,15 @@ public class TransactionDbController {
     @PutMapping("/update-transaction")
     public ResponseEntity<TransactionResponseDTO> updateTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
         return ResponseEntity.ok(this.localTransactionService.updateTransaction(transactionDTO));
+    }
+
+    @DeleteMapping("/delete-transaction")
+    public ResponseEntity<Void> deleteTransaction(@RequestParam UUID transactionGuid){
+        Boolean deleted = this.localTransactionService.deleteTransaction(transactionGuid.toString());
+
+        if(deleted)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.notFound().build();
     }
 }
