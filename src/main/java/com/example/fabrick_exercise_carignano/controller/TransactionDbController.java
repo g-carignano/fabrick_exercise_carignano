@@ -39,5 +39,4 @@ public class TransactionDbController {
         return ResponseEntity.ok(this.localTransactionService.insertTransaction(transactionDTO));
     }
 
-
 }
