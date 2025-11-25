@@ -8,7 +8,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -36,7 +38,13 @@ public class TransactionDbController {
 
     @PostMapping("/create-transaction")
     public ResponseEntity<TransactionResponseDTO> createTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
-        return ResponseEntity.ok(this.localTransactionService.insertTransaction(transactionDTO));
+        TransactionResponseDTO createdTransaction = this.localTransactionService.insertTransaction(transactionDTO);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTransaction.getIdTransaction()).toUri();
+        return ResponseEntity.created(location).body(createdTransaction);
     }
 
+    @PutMapping("/update-transaction")
+    public ResponseEntity<TransactionResponseDTO> updateTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
+        return ResponseEntity.ok(this.localTransactionService.updateTransaction(transactionDTO));
+    }
 }

@@ -14,4 +14,8 @@ public class TransactionInfoDbS {
     public TransactionInfo insertTransactionInfo(TransactionInfo transactionInfo){
         return transactionInfoRepository.saveAndFlush(transactionInfo);
     }
+
+    public TransactionInfo updateTransactionInfo(TransactionInfo transactionInfo){
+        return transactionInfoRepository.saveAndFlush(transactionInfo);
+    }
 }

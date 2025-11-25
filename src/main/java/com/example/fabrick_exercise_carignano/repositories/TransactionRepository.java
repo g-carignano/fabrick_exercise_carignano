@@ -34,4 +34,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, BigDec
             @Param("circuit") String circuit
     );
 
+    @Query("""
+        SELECT t FROM Transaction t
+        JOIN FETCH t.paymentMethod pm
+        JOIN FETCH t.transactionInfo ti
+        WHERE t.transactionGuid = :guid
+    """)
+    Transaction findByTransactionGuid(@Param("guid") String guid);
 }

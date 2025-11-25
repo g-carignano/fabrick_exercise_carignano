@@ -39,5 +39,13 @@ public class TransactionDbS {
         return transactionRepository.saveAndFlush(transaction);
     }
 
+    public Transaction getTransactionByGuid(String guid){
+        return transactionRepository.findByTransactionGuid(guid);
+    }
+
+    public Transaction updateTransaction(Transaction transaction){
+        return transactionRepository.saveAndFlush(transaction);
+    }
+
 
 }

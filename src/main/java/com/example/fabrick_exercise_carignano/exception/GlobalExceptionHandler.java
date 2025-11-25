@@ -46,6 +46,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new FabrickResponseError(fe.getStatus(), fe.getErrorList().getFirst().getDescription()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<FabrickResponseError> handleIllegalArgumentException(IllegalArgumentException ie){
+        return new ResponseEntity<>(new FabrickResponseError("400", "Json arguments are not valid!"), HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<FabrickResponseError> handleRuntimeException(RuntimeException re){
+        if(re.getMessage().equals("Transaction Not Found!"))
+            return new ResponseEntity<>(new FabrickResponseError("404", "Transaction Not Found!"), HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(new FabrickResponseError("500", "Internal Server Error (To Manage)"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
