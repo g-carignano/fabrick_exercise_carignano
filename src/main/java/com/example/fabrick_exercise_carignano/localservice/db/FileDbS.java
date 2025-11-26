@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 @Service
 public class FileDbS {
 
@@ -23,6 +26,18 @@ public class FileDbS {
         }
 
         return true;
+    }
+
+    public File getFileById(BigDecimal id){
+        Optional<File> ret =fileRepository.findById(id);
+
+        if(!ret.isPresent()){
+            log.error("File with Id: {} not found!", id);
+            throw new RuntimeException("File with Id " + id + " not found!");
+        }
+
+
+        return ret.get();
     }
 
 }

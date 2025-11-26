@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Base64;
 
 @Service
@@ -27,5 +28,9 @@ public class FileService implements IFileService {
         if(!fileDbS.uploadFileToDB(fileMapper.toFile(fileDTO)))
             throw new RuntimeException("Failed to load image!");
         return true;
+    }
+
+    public FileDTO getFileById(BigDecimal id) throws RuntimeException {
+        return fileMapper.toFileDTO(fileDbS.getFileById(id));
     }
 }
