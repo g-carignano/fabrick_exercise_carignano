@@ -9,6 +9,7 @@ import com.example.fabrick_exercise_carignano.fabrickdto.moneytransfer.local.Mon
 import com.example.fabrick_exercise_carignano.fabrickdto.transaction.fabrick.TransactionResponseFabrick;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.util.InternalException;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public FabrickResponse<BalanceResponse> getBankAccountBalanceFromMapping(long accountId) {
+    public FabrickResponse<BalanceResponse> getBankAccountBalanceFromMapping(long accountId){
         log.info("Calling external api with manual mapping: {} with accountId: {}",getBalanceUrl, accountId);
 
         String result = restClient.get().uri(getBalanceUrl,accountId).retrieve().body(String.class);
@@ -70,10 +71,14 @@ public class ClientService implements IClientService {
             return FabrickResponseBalanceResponseConverter.ConvertFromJSon(jsonObject);
 
 
-        }catch (Exception ex){
+        }catch (JSONException je){
+            log.error(je.getMessage());
+        }
+        catch (Exception ex){
             log.error(ex.getMessage());
             throw ex;
         }
+        return null;
 
     }
 

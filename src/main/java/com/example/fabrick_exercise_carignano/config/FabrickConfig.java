@@ -1,30 +1,60 @@
 package com.example.fabrick_exercise_carignano.config;
 
 import com.example.fabrick_exercise_carignano.fabrickservice.client.ClientService;
+import com.example.fabrick_exercise_carignano.localservice.batch.TransactionBatchService;
+import com.example.fabrick_exercise_carignano.localservice.image.FileService;
+import com.example.fabrick_exercise_carignano.repositories.csv.TransactionCsv;
+import com.example.fabrick_exercise_carignano.repositories.dao.Transaction;
+import com.example.fabrick_exercise_carignano.schedulers.JobCompletionListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.client.RestClient;
 
-import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
-import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.example.fabrick_exercise_carignano.repositories")
+@EnableBatchProcessing
 public class FabrickConfig {
     private static final Logger log = LoggerFactory.getLogger(ClientService.class);
+    private final JobLauncher jobLauncher;
+    private final TransactionBatchService transactionBatchService;
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager transactionManager;
+    private final FileService fileService;
+
+    public FabrickConfig(JobLauncher jobLauncher,
+                         TransactionBatchService transactionBatchService,
+                         JobRepository jobRepository,
+                         PlatformTransactionManager transactionManager,
+                         FileService fileService){
+        this.jobLauncher = jobLauncher;
+        this.transactionBatchService = transactionBatchService;
+        this.jobRepository = jobRepository;
+        this.transactionManager = transactionManager;
+        this.fileService = fileService;
+    }
 
     @Bean
     public RestClient restClient(@Value("${fabrick.base-url}") String baseUrl, @Value("${fabrick.auth-schema}") String authSchema, @Value("${fabrick.api-key}") String apiKey){
@@ -45,37 +75,46 @@ public class FabrickConfig {
         return new ObjectMapper().registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
-    /*@Bean
-    public DataSource dataSource(String dbDriver, String dbUrl, String dbUsername, String dbPassword) {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(dbDriver);
-        ds.setUrl(dbUrl);
-        ds.setUsername(dbUsername);
-        ds.setPassword(dbPassword);
-        return ds;
+    @Bean
+    @StepScope
+    public JpaPagingItemReader<Transaction> transactionReader() {
+        return transactionBatchService.createReader();
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(@Value("${spring.datasource.driver-class-name}") String dbDriver, @Value("${spring.datasource.url}") String dbUrl, @Value("${spring.datasource.username}") String dbUsername, @Value("${spring.datasource.password}") String dbPassword) {
-        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
-        factory.setDataSource(dataSource(dbDriver,dbUrl,dbUsername,dbPassword));
-
-        // Packages where your entity classes are located
-        factory.setPackagesToScan("com.example.entities");
-
-        Properties hibernateProps = new Properties();
-        hibernateProps.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect"); // change for your DB
-        hibernateProps.put("hibernate.show_sql", "true");
-        hibernateProps.put("hibernate.hbm2ddl.auto", "update");
-
-        factory.setHibernateProperties(hibernateProps);
-        return factory;
+    public ItemProcessor<Transaction, TransactionCsv> transactionProcessor() {
+        return transactionBatchService.transactionProcessor();
     }
 
     @Bean
-    public org.springframework.orm.hibernate5.HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        org.springframework.orm.hibernate5.HibernateTransactionManager txManager = new org.springframework.orm.hibernate5.HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory);
-        return txManager;
-    }*/
+    @StepScope
+    public FlatFileItemWriter<TransactionCsv> transactionWriter() {
+        return transactionBatchService.createWriter();
+    }
+
+    @Bean
+    public Step transactionStep() {
+        return new StepBuilder("transactionStep", jobRepository)
+                .<Transaction, TransactionCsv>chunk(50, transactionManager)
+                .reader(transactionReader())
+                .processor(transactionProcessor())
+                .writer(transactionWriter())
+                .build();
+    }
+
+    // Job definition
+    @Bean
+    public Job transactionJob() {
+        return new JobBuilder("transactionJob", jobRepository)
+                .start(transactionStep())
+                .listener(jobCompletionListener())
+                .build();
+    }
+
+
+    @Bean
+    public JobCompletionListener jobCompletionListener() {
+        return new JobCompletionListener(fileService);
+    }
+
 }
